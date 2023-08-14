@@ -9,6 +9,7 @@ import {collection, doc, getDoc, getDocs, query, where} from "firebase/firestore
 import {
     getAuth
 } from "firebase/auth";
+import {toast} from "react-toastify";
 
 
 const Login = () => {
@@ -27,6 +28,9 @@ const Login = () => {
             navigate('/profile')
             return res
         } catch (e) {
+            toast.error(JSON.parse(JSON.stringify(e.code)), {
+                position: toast.POSITION.BOTTOM_CENTER
+            });
             // toast({
             //     title: JSON.parse(JSON.stringify(e.code)),
             //     // description: "We've created your account for you.",

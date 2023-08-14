@@ -22,6 +22,8 @@ import CheckOut from './Pages/CheckOut';
 import {useState} from 'react';
 import data from './data';
 import Account from "./Pages/Account";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     const {products} = data;
@@ -79,6 +81,18 @@ function App() {
                     </Route>
                 </Routes>
             </BrowserRouter>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </>
     );
 }
