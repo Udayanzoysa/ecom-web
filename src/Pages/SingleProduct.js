@@ -69,12 +69,12 @@ const SingleProduct = (props) => {
                                 <div className='d-flex align-items-center gap-10'>
                                     <ReactStars
                                         count={5}
-                                        value='3'
+                                        value={product?.rate || '0'}
                                         size={24}
                                         edit={true}
                                         activeColor="#ffd700"
                                     />
-                                    <p className='mb-0 t-review'>[02 reviews]</p>
+                                    <p className='mb-0 t-review'>{`[${product?.rate} reviews]`}</p>
                                 </div>
                                 <a className='review-btn' href='#review'>write a review</a>
                             </div>
@@ -85,7 +85,7 @@ const SingleProduct = (props) => {
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
                                     <h4 className='product-heading'>Category :</h4>
-                                    <p className='product-data'>{product?.category || ''}</p>
+                                    <p className='product-data'>{product?.Category || ''}</p>
                                 </div>
                                 <div className='d-flex gap-10 align-items-center my-2'>
                                     <h4 className='product-heading'>Tags :</h4>
@@ -100,23 +100,19 @@ const SingleProduct = (props) => {
                                     <div className='d-flex align-items-center gap-10'>
                                         <select name='' className='form-control form-select fs-16' id=''>
                                             <option value='manual'>Normal</option>
-                                            <option value='4mm riflect(black)' selected='selected'>4 mm riflect black
-                                            </option>
-                                            <option value='4mm riflect(blue)'>4mm riflect blue</option>
-                                            <option value='4mm riflect(green)'>4mm riflect green</option>
-                                            <option value='4mm riflect(red)'>4mm riflect red</option>
-                                            <option value='4mm riflect(red)'> 1 FEET</option>
-                                            <option value='4mm riflect(red)'> 2 FEET</option>
-                                            <option value='4mm riflect(red)'> 4 FEET</option>
-                                            <option value='4mm riflect(red)'> S</option>
-                                            <option value='4mm riflect(red)'> M</option>
-                                            <option value='4mm riflect(red)'> L</option>
+                                            {
+                                                product?.size?.map((item) => (
+                                                    <option value='4mm riflect(black)' selected='selected'>
+                                                        {item}
+                                                    </option>
+                                                ))
+                                            }
                                         </select>
                                     </div>
                                 </div>
                                 <div className='d-flex gap-10 flex-column mt-2 mb-3'>
                                     <h4 className='product-heading'>Color :</h4>
-                                    <Color/>
+                                    <Color data={product?.color}/>
                                 </div>
                                 <div className='d-flex align-items-center gap-15 flex-row mt-2 mb-3'>
                                     <h4 className='product-heading'>Quantity :</h4>
@@ -133,7 +129,7 @@ const SingleProduct = (props) => {
                                     </div>
                                     <div>
                                         <div className='d-flex gap-30 align-items-center ms-5'>
-                                            <Link to='/cart' className='button'>
+                                            <Link onClick={()=>onAdd(product)} className='button'>
                                                 Add to cart
                                             </Link>
                                             <Link to='/checkout' className='button'>
