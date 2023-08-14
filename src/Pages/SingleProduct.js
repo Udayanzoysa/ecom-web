@@ -19,7 +19,6 @@ const SingleProduct = (props) => {
     const {products, onAdd} = props;
     const {id} = useParams();
     const product = products.find((item) => (item.id == id))
-    console.log(product,'product')
 
     const images = {
         width: 400,
