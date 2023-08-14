@@ -24,7 +24,7 @@ const Login = () => {
         try {
             let res = await firebase.auth().signInWithEmailAndPassword(form?.email, form?.password)
             const auth = getAuth();
-            navigate('/admin')
+            navigate('/profile')
             return res
         } catch (e) {
             // toast({
@@ -49,7 +49,8 @@ const Login = () => {
                         <div className='auth-card'>
                             <h3 className='text-center mb-3'>Login</h3>
                             <CustomInput onChange={valueChangeHandler} type='email' name='email' placeholder='Email'/>
-                            <CustomInput onChange={valueChangeHandler} type='password' name='password' placeholder='password'/>
+                            <CustomInput onChange={valueChangeHandler} type='password' name='password'
+                                         placeholder='password'/>
                             <div className=''>
                                 <Link to='/ForgotPassword'>Forgot Password?</Link>
                                 <div className='mt-3 d-flex justify-content-center gap-15 align-item-center'>
