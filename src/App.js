@@ -75,7 +75,7 @@ function App() {
                         <Route path='termandconditions' element={<TermsAndConditions/>}/>
                         <Route path='Cart'
                                element={<Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></Cart>}/>
-                        <Route path='Checkout' element={<CheckOut/>}/>
+                        <Route path='Checkout' element={<CheckOut cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></CheckOut>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

@@ -6,13 +6,12 @@ import Container from '../Components/Container';
 import PaymentModal from '../Components/PayhereModal';
 
 const CheckOut = (props) => {
-
     const { cartItems, onAdd, onRemove } = props;
+
     const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
     const taxPrice = itemsPrice * 0.14;
     const shippingPrice = itemsPrice > 2000 ? 0 : 20;
     const totalPrice = itemsPrice + taxPrice + shippingPrice;
-
 
     return (
         <>
@@ -105,23 +104,27 @@ const CheckOut = (props) => {
                     <div className='col-5'>                    
                         <div className='border-bottom py-4'>
                             <div className='d-flex justify-content-between align-items-center'>
-                                <p className='total'>SubTotal</p>
-                                <p className='total-price' >LKR 1100</p>
+                                <p className='total'>Sub Total</p>
+                                <p className='total-price' >LKR {itemsPrice.toFixed(2)}</p>
+                            </div>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <p className='total'>Tax</p>
+                                <p className='total-price' >LKR {taxPrice.toFixed(2)}</p>
                             </div>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <p className='mb-0 total'>Shipping</p>
-                                <p className='mb-0 total-price'>LKR {cartItems.shippingPrice}</p>
+                                <p className='mb-0 total-price'>LKR {shippingPrice.toFixed(2)}</p>
                             </div>
                         </div>
                         <div className='d-flex justify-content-between align-items-center border-bottom py-4'>
                             <h4 className='total'>Total</h4>
-                            <h5 className='total-price'>LKR 1500</h5>
+                            <h5 className='total-price'>LKR {totalPrice.toFixed(2)}</h5>
                         </div>
                         <div className='mt-5 '>
                             <Link to='/Cart' className='button mx-5' >
                                 Continue to Shipping
                             </Link>
-                            <PaymentModal orderId={45896588} name="Just For You Mom Ribbon Cake" amount="4500"></PaymentModal>
+                            <PaymentModal orderId={45896588} name="Dushan Glass Center - Bill " amount={totalPrice}></PaymentModal>
                             
                         </div>
                     </div>
