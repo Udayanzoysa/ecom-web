@@ -60,8 +60,7 @@ const Header = (props) => {
               <Link to='/Cart' className='d-flex align-item-center gap-10 text-white'>
               <img src={cart} alt='cart' />
               <div className='d-flex flex-column gap-10'>
-                <span className='badge bg-white text-dark'>{props.countCartItems}</span>
-                <p className='mb-0'>LKR 2000</p>
+                <span className='badge bg-white text-dark'>{props.countCartItems}</span>                
               </div>
               </Link>
             </div>
