@@ -3,10 +3,16 @@ import BreadCrumb from '../Components/BreadCrumb';
 import Meta from '../Components/Meta';
 import product8 from '../images/product 8.png';
 import { AiFillDelete } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Container from '../Components/Container';
+import data from "../data";
 const Cart = (props) => {
     const { cartItems, onAdd, onRemove } = props;
+    const { id } = useParams();
+    console.log(id,'dfgdfgdfg')
+    const {products} = data;
+
+    // const product = products.find((item)=>())
     const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
     const taxPrice = itemsPrice * 0.14;
     const shippingPrice = itemsPrice > 2000 ? 0 : 20;

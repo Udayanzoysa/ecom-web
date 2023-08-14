@@ -51,33 +51,36 @@ function App() {
         }
     };
 
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Layouts countCartItems={cartItems.length}></Layouts>}>
-            <Route index element={<Home />} />
-            <Route path='contact' element={<Contact />} />
-            <Route path='blog' element={<Blog />} />
-            <Route path='blog/:id' element={<SingleBlog />} />
-            <Route path='OurStore' element={<OurStore products={products} onAdd={onAdd}></OurStore>} />
-            <Route path='OurStore/:id' element={<SingleProduct products={products} onAdd={onAdd}></SingleProduct>} />
-            <Route path='wishlist' element={<Wishlist />} />
-            <Route path='login' element={<Login />} />
-            <Route path='forgotpassword' element={<ForgotPassword />} />
-            <Route path='signup' element={<Signup />} />
-            <Route path='resetpassword' element={<ResetPassword />} />
-            <Route path='privacypolicy' element={<PrivacyPolicy />} />
-            <Route path='shippingpolicy' element={<ShippingPolicy />} />
-            <Route path='refundpolicy' element={<RefundPolicy />} />
-            <Route path='termandconditions' element={<TermsAndConditions />} />
-            <Route path='Cart' element={<Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></Cart>} />
-            <Route path='Checkout' element={<CheckOut />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<Layouts countCartItems={cartItems.length}></Layouts>}>
+                        <Route index element={<Home/>}/>
+                        <Route path='contact' element={<Contact/>}/>
+                        <Route path='blog' element={<Blog/>}/>
+                        <Route path='blog/:id' element={<SingleBlog/>}/>
+                        <Route path='OurStore' element={<OurStore products={products} onAdd={onAdd}></OurStore>}/>
+                        <Route path='OurStore/:id'
+                               element={<SingleProduct products={products} onAdd={onAdd}></SingleProduct>}/>
+                        <Route path='wishlist' element={<Wishlist/>}/>
+                        <Route path='login' element={<Login/>}/>
+                        <Route path='forgotpassword' element={<ForgotPassword/>}/>
+                        <Route path='signup' element={<Signup/>}/>
+                        <Route path='profile' element={<Account/>}/>
+                        <Route path='resetpassword' element={<ResetPassword/>}/>
+                        <Route path='privacypolicy' element={<PrivacyPolicy/>}/>
+                        <Route path='shippingpolicy' element={<ShippingPolicy/>}/>
+                        <Route path='refundpolicy' element={<RefundPolicy/>}/>
+                        <Route path='termandconditions' element={<TermsAndConditions/>}/>
+                        <Route path='Cart'
+                               element={<Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></Cart>}/>
+                        <Route path='Checkout' element={<CheckOut/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;

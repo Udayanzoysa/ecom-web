@@ -19,19 +19,17 @@ const Signup = () => {
         setForm({...form, [name]: value})
     }
 
-    console.log(form, 'formrmr')
-
     const signHandler = async () => {
         try {
             let result = await firebase.auth().createUserWithEmailAndPassword(form?.email, form.password)
             if (result?.user?.uid) {
                 const db = firebase.firestore();
-                const docRef = await setDoc(doc(db, 'userProfile', result?.user?.uid), {...form,type:'user'});
+                const docRef = await setDoc(doc(db, 'userProfile', result?.user?.uid), {...form, type: 'user'});
                 navigate('/profile')
             }
             // return result?.user?.uid
         } catch (e) {
-            console.log(e,'eeeee')
+            console.log(e, 'eeeee')
         }
     }
 
@@ -47,24 +45,24 @@ const Signup = () => {
                                 <HiOutlineArrowLeft className='fs-12'/>
                             </Link>
                             <h3 className='text-center mb-3'>Sign Up</h3>
-                                <CustomInput onChange={valueChangeHandler} type='text' name='firstName'
-                                             placeholder='First Name'/>
-                                <CustomInput onChange={valueChangeHandler} type='text' name='lastName'
-                                             placeholder='Last Name'/>
-                                <CustomInput onChange={valueChangeHandler} type='email' name='email'
-                                             placeholder='Email'/>
-                                <CustomInput onChange={valueChangeHandler} type='password' name='password'
-                                             placeholder='password'/>
-                                <div className=''>
-                                    <button className='button border-0' onClick={signHandler}>
-                                        Sign Up
-                                    </button>
-                                    {/*<div className='mt-3 d-flex justify-content-center gap-15 align-item-center'>*/}
-                                    {/*    <Link to='/Login' className='button text-white'>*/}
-                                    {/*        Sign Up*/}
-                                    {/*    </Link>*/}
-                                    {/*</div>*/}
-                                </div>
+                            <CustomInput onChange={valueChangeHandler} type='text' name='firstName'
+                                         placeholder='First Name'/>
+                            <CustomInput onChange={valueChangeHandler} type='text' name='lastName'
+                                         placeholder='Last Name'/>
+                            <CustomInput onChange={valueChangeHandler} type='email' name='email'
+                                         placeholder='Email'/>
+                            <CustomInput onChange={valueChangeHandler} type='password' name='password'
+                                         placeholder='password'/>
+                            <div className=''>
+                                <button className='button border-0' onClick={signHandler}>
+                                    Sign Up
+                                </button>
+                                {/*<div className='mt-3 d-flex justify-content-center gap-15 align-item-center'>*/}
+                                {/*    <Link to='/Login' className='button text-white'>*/}
+                                {/*        Sign Up*/}
+                                {/*    </Link>*/}
+                                {/*</div>*/}
+                            </div>
                         </div>
                     </div>
                 </div>
