@@ -24,11 +24,13 @@ import data from './data';
 import Account from "./Pages/Account";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useUserLoginInfo from "./hooks/useLoginInfo";
 
 function App() {
-    let userDetails = useUserLoginInfo()
+
     const {products} = data;
     const [cartItems, setCartItems] = useState([]);
+
     const onAdd = (product) => {
         const exist = cartItems.find((x) => x.id === product.id);
         if (exist) {

@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
-import {collection, getDocs, addDoc, setDoc, doc, query, where, getDoc} from "firebase/firestore";
-import {selectOptions} from "@testing-library/user-event/dist/select-options";
+import {addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, where} from "firebase/firestore";
+import {updateProfile} from "firebase/auth";
 
 export const getDocFromCollection = async (collection, document) => {
     const db = firebase.firestore();

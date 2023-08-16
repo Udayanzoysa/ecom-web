@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import firebase from "firebase/compat/app";
 import {useNavigate} from "react-router-dom";
-import {getDocFromCollection} from "../actions/common.action";
+import {getDocFromCollection} from "../actions/CommonAction";
 
 const useUserLoginInfo = () => {
     let navigate = useNavigate()
@@ -20,7 +20,7 @@ const useUserLoginInfo = () => {
             } else {
 
                 setModel({isLogged: false});
-                navigate('/')
+                // navigate('/')
             }
         });
     }
