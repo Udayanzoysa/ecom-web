@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layouts from './Components/Layouts';
 import Home from './Pages/Home';
 import Contact from './Pages/Contact';
@@ -19,12 +19,11 @@ import TermsAndConditions from './Pages/TermsAndConditions';
 import SingleProduct from './Pages/SingleProduct';
 import Cart from './Pages/Cart';
 import CheckOut from './Pages/CheckOut';
-import {useState} from 'react';
 import data from './data';
 import Account from "./Pages/Account";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useUserLoginInfo from "./hooks/useLoginInfo";
+import ContextProvider from "./providers/ContextProvider";
 
 function App() {
 
@@ -80,7 +79,8 @@ function App() {
                         <Route path='termandconditions' element={<TermsAndConditions/>}/>
                         <Route path='Cart'
                                element={<Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></Cart>}/>
-                        <Route path='Checkout' element={<CheckOut cartItems={cartItems} onAdd={onAdd} onRemove={onRemove}></CheckOut>}/>
+                        <Route path='Checkout' element={<CheckOut cartItems={cartItems} onAdd={onAdd}
+                                                                  onRemove={onRemove}></CheckOut>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

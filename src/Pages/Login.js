@@ -5,10 +5,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import Container from '../Components/Container';
 import CustomInput from '../Components/CustomInput';
 import firebase from "firebase/compat/app";
-import {collection, doc, getDoc, getDocs, query, where} from "firebase/firestore";
-import {
-    getAuth
-} from "firebase/auth";
+import {getAuth} from "firebase/auth";
 import {toast} from "react-toastify";
 
 

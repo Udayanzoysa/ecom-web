@@ -1,19 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Outlet} from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import useUserLoginInfo from "../hooks/useLoginInfo";
-import {useDispatch} from "react-redux";
-import {setUserDetails} from "../store/reducers/userDetails-slice";
+import {StoreContext} from "../providers/ContextProvider";
 
 const Layouts = (props) => {
 
     let userDetails = useUserLoginInfo()
-    const dispatch = useDispatch()
+    const {setValue, getValue} = useContext(StoreContext)
 
     useEffect(() => {
-        dispatch(setUserDetails(userDetails))
+        setValue({path: 'user', data: userDetails})
     }, [userDetails]);
+
+    console.log(getValue('user'))
 
     return (
         <>

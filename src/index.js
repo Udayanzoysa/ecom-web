@@ -5,8 +5,7 @@ import "firebase/compat/firestore";
 import {createRoot} from 'react-dom/client';
 import App from './App';
 import firebaseConfig from "./FireBaseConfig";
-import {Provider} from "react-redux";
-import {store} from "./store/store";
+import ContextProvider from "./providers/ContextProvider";
 
 
 firebase.initializeApp(firebaseConfig)
@@ -16,7 +15,7 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-    <Provider store={store}>
+    <ContextProvider>
         <App/>
-    </Provider>
+    </ContextProvider>
 );
