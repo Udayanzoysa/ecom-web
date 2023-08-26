@@ -55,7 +55,7 @@ const data = {
         rate:'4',
         color: ['red'],
         size: ['40mm thick'],
-      },
+      },  
     ],
   };
   export default data;

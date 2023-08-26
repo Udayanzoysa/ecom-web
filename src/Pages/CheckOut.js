@@ -1,17 +1,58 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import product8 from '../images/product 8.png';
 import Container from '../Components/Container';
 import PaymentModal from '../Components/PayhereModal';
+import { StoreContext } from '../providers/ContextProvider';
+
+import useUserLoginInfo from '../hooks/useLoginInfo';
 
 const CheckOut = (props) => {
     const { cartItems, onAdd, onRemove } = props;
+    const navigate = useNavigate()
 
     const itemsPrice = cartItems.reduce((a, c) => a + c.qty * c.price, 0);
     const taxPrice = itemsPrice * 0.14;
     const shippingPrice = itemsPrice > 2000 ? 0 : 20;
     const totalPrice = itemsPrice + taxPrice + shippingPrice;
+
+    const { setValue, getValue } = useContext(StoreContext);
+
+    const [shippingData, setShippingData] = useState({
+        province: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        district: '',
+        zipCode: '',
+    });
+
+    let userDetails = useUserLoginInfo();
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setShippingData((prevData) => ({
+            ...prevData,
+            userID: userDetails.id,
+            [name]: value,
+            price: totalPrice,
+            cartItems: cartItems,
+            payStatus: "Paid"
+        }));
+    };
+
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Assuming you have a proper path for storing shipping details
+        setValue({ path: 'customer.shipping', data: shippingData });
+        navigate('/Payment');
+    };
+
+
 
     return (
         <>
@@ -26,18 +67,16 @@ const CheckOut = (props) => {
                                     <li className="breadcrumb-item">
                                         <Link to='/Cart' className='text-dark total-price'>Cart</Link></li>
                                     &nbsp; /
-                                    <li className="breadcrumb-item active total-price" aria-current="page">
+                                    <li className="breadcrumb-item total-price" aria-current="page">
                                         Information</li> &nbsp; /
                                     <li className="breadcrumb-item active total-price">Shipping</li>
-                                    &nbsp; /
-                                    <li className="breadcrumb-item active total-price" aria-current="page">
-                                        Payment</li>
+
                                 </ol>
                             </nav>
-                            <form action=''
+                            <form action='' onSubmit={handleSubmit}
                                 className='d-flex gap-15 flex-wrap justify-content-between'>
                                 <div className='w-100'>
-                                    <select name='' className='form-control form-select' id=''>
+                                    <select name='province' className='form-control form-select' id='' onChange={handleInputChange}>
                                         <option value='Select Provice' selected='selected'>Select Province</option>
                                         <option value='Southern'>Southern</option>
                                         <option value='Western'>Western</option>
@@ -53,25 +92,35 @@ const CheckOut = (props) => {
                                 <div className='flex-grow-1'>
                                     <input type='text'
                                         placeholder='First Name'
-                                        className='form-control' />
+                                        className='form-control' name='firstName' onChange={handleInputChange} />
                                 </div>
                                 <div className='flex-grow-1'>
                                     <input type='text'
                                         placeholder='Last Name'
-                                        className='form-control' />
+                                        className='form-control' name='lastName' onChange={handleInputChange} />
                                 </div>
-                                <div className='w-100'>
+                                <div className='flex-grow-1'>
+                                    <input type='email'
+                                        placeholder='Email'
+                                        className='form-control' name='email' onChange={handleInputChange} />
+                                </div>
+                                <div className='w-50'>
                                     <input type='text'
                                         placeholder='Address'
-                                        className='form-control' />
+                                        className='form-control' name='address' onChange={handleInputChange} />
+                                </div>
+                                <div className='w-50'>
+                                    <input type='text'
+                                        placeholder='ZipCode'
+                                        className='form-control' name='zipCode' onChange={handleInputChange} />
                                 </div>
                                 <div className='flex-grow-1'>
                                     <input type='text'
                                         placeholder='City'
-                                        className='form-control' />
+                                        className='form-control' name='city' onChange={handleInputChange} />
                                 </div>
-                                <div className='flex-grow-1'>
-                                    <select name='' className='form-control form-select' id=''>
+                                <div className='w-100'>
+                                    <select name='district' className='form-control form-select' id='' onChange={handleInputChange}>
                                         <option value='District' selected='selected'>District</option>
                                         <option value='Galle'>Galle</option>
                                         <option value='Colombo'>Colombo</option>
@@ -85,11 +134,7 @@ const CheckOut = (props) => {
                                         <option value='Matale'>Matale</option>
                                     </select>
                                 </div>
-                                <div className='flex-grow-1'>
-                                    <input type='text'
-                                        placeholder='ZipCode'
-                                        className='form-control' />
-                                </div>
+                                <button className='btn btn-primary' type='submit'>Save </button>
                                 <div className='w-100'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <Link to='/Cart' className='text-dark'>
@@ -98,10 +143,11 @@ const CheckOut = (props) => {
                                         </Link>
                                     </div>
                                 </div>
+
                             </form>
                         </div>
                     </div>
-                    <div className='col-5'>                    
+                    <div className='col-5'>
                         <div className='border-bottom py-4'>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <p className='total'>Sub Total</p>
@@ -124,8 +170,9 @@ const CheckOut = (props) => {
                             <Link to='/Cart' className='button mx-5' >
                                 Continue to Shipping
                             </Link>
-                            <PaymentModal orderId={45896588} name="Dushan Glass Center - Bill " amount={totalPrice}></PaymentModal>
-                            
+                            <Link className='button mx-5' type='submit' >
+                                Pay Now
+                            </Link>
                         </div>
                     </div>
                 </div>
