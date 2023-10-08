@@ -37,7 +37,7 @@ const SingleProduct = (props) => {
                 let doc = (await getDocFromCollection('tag', tag))['name']
                 tags.push(doc)
             }
-            setProduct({ ...data, category, brand, stockAvailable, price, colors, tags })
+            setProduct({ ...data, category, brand, stockAvailable, price, colors, tags ,id })
             setSelectedImage(Array.isArray(data?.images) ? data?.images[0] : '')
         }).finally(() => {
             setIsLoading(false)

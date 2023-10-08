@@ -56,6 +56,8 @@ function App() {
         }
     };
 
+    console.log(cartItems,'cartItems');
+
     return (
         <>
             <ContextProvider>
