@@ -13,6 +13,20 @@ const ProductCard = (props) => {
 
   const { product, onAdd } = props;
 
+  const images = (
+    <div className='product-image'>
+    {
+        product?.images?.map((imgSrc)=>(
+          <img
+          src={imgSrc}
+          className='img-fluid w-280'
+          alt='product-image'
+        />
+        ))  
+      }
+      </div>
+  )
+
   return (
     <>
       <div className="mr-75">
@@ -23,22 +37,26 @@ const ProductCard = (props) => {
                 <img src={wish} alt='wishlist' />
               </button>
             </div>
-            <div className='product-image'>
-              <img
-                src={product.image}
+
+            {images}
+           
+            {/* <img
+                src={product?.images ? product?.images[0]:''}
                 className='img-fluid w-280'
                 alt='product-image'
               />
               <img
-                src={product3}
+                src={"https://firebasestorage.googleapis.com/v0/b/e-commerce-v1-18dce.appspot.com/o/products%2F932Screenshot%20from%202023-08-18%2016-14-13.png?alt=media&token=e58a3d01-7e6e-4ba5-bd1f-541f82e71a80"}
                 className='img-fluid w-280'
                 alt='product-image'
-              />
-            </div>
+              /> */}
+           
+              
+       
             <div className='product-details'>
-              <h6 className='brand'>Door Locks</h6>
+              <h6 className='brand'>{product?.brand}</h6>
               <h5 className='product-title'>
-                {product.name}
+                {product?.title}
               </h5>
               <ReactStars
                 count={5}

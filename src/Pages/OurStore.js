@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BreadCrumb from '../Components/BreadCrumb';
 import Color from '../Components/Color';
 import ProductCard from '../Components/ProductCard';
@@ -9,12 +9,39 @@ import gr3 from '../images/gr3.svg';
 import gr4 from '../images/gr4.svg';
 import Meta from '../Components/Meta';
 import Container from '../Components/Container';
+import { getAllDocFromCollection, getDocFromCollection } from '../actions/CommonAction'
+import { async } from 'q';
 
 
 const OurStore = (props) => {
   const [grid, setGrid] = useState(4);
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { products, onAdd } = props;
+  useEffect(() => {
+    setIsLoading(true)
+    getAllDocFromCollection('product').then(async (data) => {
+      let array = []
+
+      for (let doc of data) {
+        if (doc.brand) {
+          let brand = await getDocFromCollection('brand', doc.brand)
+          array.push({ ...doc, "brand": brand.name })
+          continue
+        }
+        array.push({ ...doc })
+      }
+
+      setProducts(array)
+      console.log(array, 'data')
+    }).finally(() => {
+      setIsLoading(false)
+    })
+  }, [])
+
+  const { onAdd } = props;
+
+
 
   return (
     <>
@@ -154,11 +181,17 @@ const OurStore = (props) => {
               </div>
             </div>
             <div className='product-list pb-5'>
-              <div className='d-flex gap 10 flex-wrap'>
-                {products.map((product) => (
-                  <ProductCard grid={grid} key={product.id} product={product} onAdd={onAdd} />
-                ))}
+              <div className='row' >
+                {isLoading ? <div style={{ width: '100%' }}><div style={{ width: '100%', height: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only"></span>
+                </div> </div> </div> :
+                  products.map((product) => (
+                    <div className='col-4'>
+                      <ProductCard grid={grid} key={product.id} product={product} onAdd={onAdd} />
+                    </div>
 
+                  ))
+                }
               </div>
             </div>
           </div>
