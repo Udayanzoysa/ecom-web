@@ -33,13 +33,13 @@ const Cart = (props) => {
                                 <div className='cart-col-1 gap-15 d-flex align-items-center'>
                                     <div className='w-25'>
                                         <img
-                                            src={item.image}
+                                            src={Array.isArray(item.images) ? item.images[0] : ''}
                                             className='img-fluid'
                                             alt='product8'
                                         />
                                     </div>
                                     <div className='w-75'>
-                                        <p>{item.name}</p>
+                                        <p>{item.title}</p>
                                         <p>color: red</p>
                                         <p>size: 40mm thick</p>
                                     </div>
