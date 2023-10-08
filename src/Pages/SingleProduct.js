@@ -106,8 +106,8 @@ const SingleProduct = (props) => {
                                     </div>
                                     <div className='border-bottom py-3'>
                                         <div className='d-flex gap-10 align-items-center my-2'>
-                                            <h4 className='product-heading'>Type :</h4>
-                                            <p className='product-data'>{product?.type || ''}</p>
+                                            <h4 className='product-heading'>Brand :</h4>
+                                            <p className='product-data'>{product?.brand || ''}</p>
                                         </div>
                                         <div className='d-flex gap-10 align-items-center my-2'>
                                             <h4 className='product-heading'>Category :</h4>
