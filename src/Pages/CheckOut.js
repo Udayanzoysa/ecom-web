@@ -134,7 +134,7 @@ const CheckOut = (props) => {
                                         <option value='Matale'>Matale</option>
                                     </select>
                                 </div>
-                                <button className='btn btn-primary' type='submit'>Save </button>
+                                <button className='btn btn-primary' type='submit'>Pay Now </button>
                                 <div className='w-100'>
                                     <div className='d-flex justify-content-between align-items-center'>
                                         <Link to='/Cart' className='text-dark'>
@@ -169,10 +169,7 @@ const CheckOut = (props) => {
                         <div className='mt-5 '>
                             <Link to='/Cart' className='button mx-5' >
                                 Continue to Shipping
-                            </Link>
-                            <Link className='button mx-5' type='submit' >
-                                Pay Now
-                            </Link>
+                            </Link>                     
                         </div>
                     </div>
                 </div>
