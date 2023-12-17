@@ -16,10 +16,12 @@ import { filterDocsFromCollection, getAllDocFromCollection, getDocFromCollection
 const OurStore = (props) => {
   const [grid, setGrid] = useState(4);
   const [products, setProducts] = useState([])
+  const [inStock, setInStock] = useState(false)
   let productForFilter = useRef([])
   const [isLoading, setIsLoading] = useState(false)
   const { setValue, getValue } = useContext(StoreContext)
   const filter = getValue('filter')
+
   useEffect(() => {
     setIsLoading(true)
     getAllDocFromCollection('product').then(async (data) => {
@@ -36,7 +38,6 @@ const OurStore = (props) => {
 
       setProducts(array)
       productForFilter.current = array
-      console.log(array, 'data')
     }).finally(() => {
       setIsLoading(false)
     })
@@ -45,15 +46,41 @@ const OurStore = (props) => {
   const { onAdd } = props;
 
   useEffect(() => {
-    let filterResult = productForFilter.current.filter((item) => (
-      item.title.toLowerCase().includes(filter?.key)
-    ))
+    let filterResult = productForFilter.current.filter((item) => {
+      if (inStock) {
+        if (filter?.key) {
+          if (item.title.toLowerCase().includes(filter?.key)) {
+            if (parseInt(item.quantity) > 0) {
+              return true
+            }
+          }
+        }
+        else {
+          if (parseInt(item.quantity) > 0) {
+            return true
+          }
+        }
 
-    console.log('filterResult',filterResult)
+      } else {
+        if (filter?.key) {
+          return item.title.toLowerCase().includes(filter?.key)
+        } else {
+          return true
+        }
+
+      }
+
+    })
+
     setProducts(filterResult)
 
-  }, [filter])
+  }, [filter, inStock])
 
+  const inStockHandler = (e) => {
+    console.log(e.target.checked)
+    setInStock(e.target.checked)
+
+  }
 
 
   return (
@@ -82,17 +109,17 @@ const OurStore = (props) => {
                 <div>
                   <div className='form-check'>
                     <input className='form-check-input'
-                      type="checkbox" id="" value="" />
+                      type="checkbox" id="" value="" onChange={inStockHandler} />
                     <label className='form-check-label' htmlFor="">
                       In Stock
                     </label>
                   </div>
                   <div className='form-check'>
-                    <input className='form-check-input'
-                      type="checkbox" id="" value="" />
-                    <label className='form-check-label' htmlFor="">
+                    {/* <input className='form-check-input'
+                      type="checkbox" id="" value={inStock} /> */}
+                    {/* <label className='form-check-label' htmlFor="">
                       Out of Stock
-                    </label>
+                    </label> */}
                   </div>
                 </div>
                 <h6 className='sub-title'>price</h6>
