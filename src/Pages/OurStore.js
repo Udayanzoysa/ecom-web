@@ -10,7 +10,6 @@ import gr4 from '../images/gr4.svg';
 import Meta from '../Components/Meta';
 import Container from '../Components/Container';
 import { getAllDocFromCollection, getDocFromCollection } from '../actions/CommonAction'
-import { async } from 'q';
 
 
 const OurStore = (props) => {

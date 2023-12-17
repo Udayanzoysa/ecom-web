@@ -20,6 +20,7 @@ const Header = (props) => {
 
   const handleLogout = () => {
     Logout();
+    setValue('user',null)
   };
 
   let userDetails = useUserLoginInfo()
@@ -31,7 +32,11 @@ const Header = (props) => {
 
   const userValue = getValue('user');
 
-  console.log(userValue);
+  console.log(userDetails,'sdsdsd');
+  
+  const searchHandler = (value)=>{
+    console.log('asas',value)
+  }
 
   return <>
     <header className='header-top-strip p-0'>
@@ -59,7 +64,7 @@ const Header = (props) => {
             <div className="input-group mt-2">
               <input id='search' type="text" className="form-control py-1 fs-20"
                 placeholder="Search Product Here..." aria-label="Search Product Here..."
-                described="basic-addon2" />
+                described="basic-addon2" onChange={searchHandler}/>
               <span className="input-group-text p-2" id="basic-addon2">
                 <BsSearch />
               </span>
@@ -77,7 +82,7 @@ const Header = (props) => {
               </div> */}
               <div>
                 {
-                  userValue ? (
+                  userValue?.isLogged ? (
                     // If user value is set, show the dropdown
                     <div className="dropdown">
                       <button
