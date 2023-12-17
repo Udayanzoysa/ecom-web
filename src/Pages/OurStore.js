@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import BreadCrumb from '../Components/BreadCrumb';
 import Color from '../Components/Color';
 import ProductCard from '../Components/ProductCard';
@@ -8,15 +8,18 @@ import gr2 from '../images/gr2.svg';
 import gr3 from '../images/gr3.svg';
 import gr4 from '../images/gr4.svg';
 import Meta from '../Components/Meta';
+import { StoreContext } from '../providers/ContextProvider';
 import Container from '../Components/Container';
-import { getAllDocFromCollection, getDocFromCollection } from '../actions/CommonAction'
+import { filterDocsFromCollection, getAllDocFromCollection, getDocFromCollection } from '../actions/CommonAction'
 
 
 const OurStore = (props) => {
   const [grid, setGrid] = useState(4);
   const [products, setProducts] = useState([])
+  let productForFilter = useRef([])
   const [isLoading, setIsLoading] = useState(false)
-
+  const { setValue, getValue } = useContext(StoreContext)
+  const filter = getValue('filter')
   useEffect(() => {
     setIsLoading(true)
     getAllDocFromCollection('product').then(async (data) => {
@@ -32,6 +35,7 @@ const OurStore = (props) => {
       }
 
       setProducts(array)
+      productForFilter.current = array
       console.log(array, 'data')
     }).finally(() => {
       setIsLoading(false)
@@ -39,6 +43,16 @@ const OurStore = (props) => {
   }, [])
 
   const { onAdd } = props;
+
+  useEffect(() => {
+    let filterResult = productForFilter.current.filter((item) => (
+      item.title.toLowerCase().includes(filter?.key)
+    ))
+
+    console.log('filterResult',filterResult)
+    setProducts(filterResult)
+
+  }, [filter])
 
 
 

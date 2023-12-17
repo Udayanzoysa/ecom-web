@@ -7,6 +7,7 @@ import Logout from './Logout';
 import useUserLoginInfo from '../hooks/useLoginInfo';
 import { getAuth, signOut } from 'firebase/auth';
 import { StoreContext } from '../providers/ContextProvider';
+import _ from 'lodash'
 
 
 import { BsSearch } from 'react-icons/bs';
@@ -20,7 +21,7 @@ const Header = (props) => {
 
   const handleLogout = () => {
     Logout();
-    setValue('user',null)
+    setValue('user', null)
   };
 
   let userDetails = useUserLoginInfo()
@@ -32,10 +33,12 @@ const Header = (props) => {
 
   const userValue = getValue('user');
 
-  console.log(userDetails,'sdsdsd');
-  
-  const searchHandler = (value)=>{
-    console.log('asas',value)
+  const searchHandler = (e) => {
+    let debounce_fun = _.debounce(function () {
+      setValue({ path: 'filter', data: {key:e?.target?.value} })
+    }, 1000);
+
+    debounce_fun()
   }
 
   return <>
@@ -64,7 +67,7 @@ const Header = (props) => {
             <div className="input-group mt-2">
               <input id='search' type="text" className="form-control py-1 fs-20"
                 placeholder="Search Product Here..." aria-label="Search Product Here..."
-                described="basic-addon2" onChange={searchHandler}/>
+                described="basic-addon2" onChange={searchHandler} />
               <span className="input-group-text p-2" id="basic-addon2">
                 <BsSearch />
               </span>
